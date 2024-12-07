@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="/css/postbox.css">
+<%- include('partials/head', { title: 'Create Post - Hubble' }) %>
+<body>
+    <%- include('partials/navbar', { activeId: '' }) %>
+    <main class="p-4">
+        <h1>Create Thread</h1>
+        <div class="post-box-container">
+            <div class="post-box">
+                <div class="profile-section">
+                    <img src="https://via.placeholder.com/50" alt="Avatar" class="avatar">
+                    <span class="username">Username</span>
+                </div>
+                <textarea id="postContent" class="text-area" rows="4" placeholder="Start a chat..." maxlength="1000"></textarea>
+                <div class="controls">
+                    <div class="buttons">
+                        <button class="action-button"><i class="bi bi-card-image"></i></button>
+                        <button class="action-button"><i class="bi bi-camera-video"></i></button>
+                        <button class="action-button"><i class="bi bi-emoji-smile"></i></button>
+                        <button class="action-button"><i class="bi bi-calculator"></i></button>
+                    </div>
+                    <div class="character-counter">
+                        <span id="charCount">0</span>/1000
+                    </div>
+                </div>
+                <button id="postButton" class="submit-button" disabled>Post</button>
+            </div>
+        </div>
+    </main>
+    <div class="modal fade" id="createPostModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="error" class="alert alert-danger" style="display: none;"></div>
+                    <form id="createPostForm">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="mb-3">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#write">Write</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#preview">Preview</a>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content mt-2">
+                                <div class="tab-pane fade show active" id="write">
+                                    <textarea 
+                                        class="form-control" 
+                                        id="postContent"
+                                        name="content" 
+                                        rows="4" 
+                                        maxlength="1000" 
+                                        placeholder="**Markdown** supported!"
+                                        required
+                                    ></textarea>
+                                </div>
+                                <div class="tab-pane fade" id="preview">
+                                    <div id="markdownPreview" class="markdown-content p-2 border rounded"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-text text-end">
+                                <span id="charCount">0</span>/1000
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="postButton" class="btn btn-primary" disabled>Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('createPostForm');
+            const textarea = document.getElementById('postContent');
+            const preview = document.getElementById('markdownPreview');
+            const charCount = document.getElementById('charCount');
+            const postButton = document.getElementById('postButton');
+            const errorDiv = document.getElementById('error');
+            const modal = document.getElementById('createPostModal');
+
+            function updatePreview() {
+                const content = textarea.value;
+                const html = DOMPurify.sanitize(marked.parse(content));
+                preview.innerHTML = html;
+            }
+
+            textarea.addEventListener('input', () => {
+                const length = textarea.value.length;
+                charCount.textContent = length;
+                postButton.disabled = length === 0 || length > 1000;
+                updatePreview();
+            });
+
+            postButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/post/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': document.querySelector('[name="_csrf"]').value
+                        },
+                        body: JSON.stringify({
+                            content: textarea.value
+                        })
+                    });
+        
+                    if (response.ok) {
+                        window.location.href = '/';
+                    } else {
+                        const data = await response.json();
+                        errorDiv.textContent = data.message || 'Failed to create post';
+                        errorDiv.style.display = 'block';
+                    }
+                } catch (error) {
+                    errorDiv.textContent = 'An error occurred';
+                    errorDiv.style.display = 'block';
+                }
+            });
+        
+            modal.addEventListener('hidden.bs.modal', () => {
+                errorDiv.style.display = 'none';
+                form.reset();
+                charCount.textContent = '0';
+                postButton.disabled = true;
+            });
+        });
+    </script>
+    <%- include('partials/footer') %>
+</body>
+</html>

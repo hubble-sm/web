@@ -1,0 +1,38 @@
+body {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+a {
+    color: #007bff;
+}
+
+[data-theme="light"] {
+  // Base colors
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  
+  // Component colors
+  --navbar-bg: #000000;
+  --navbar-text: #ffffff;
+  --card-bg: #ffffff;
+  --card-border: #dee2e6;
+  
+  // Form elements
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --input-text: #212529;
+  
+  // Accent colors
+  --primary: #0d6efd;
+  --primary-hover: #0b5ed7;
+  --success: #198754;
+  --danger: #dc3545; // Added danger color
+}
+
+body[data-theme="light"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}

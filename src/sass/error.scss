@@ -1,0 +1,53 @@
+/* error.css */
+
+/* Ensure full viewport height */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.err-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Style for the Hubble logo section */
+.err-hubble-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin-top: 10%; /* Start at 10% from the top */
+    margin-bottom: 30px; /* Space between logo and error message */
+}
+
+.err-hubble-logo .logo {
+    height: 1.5em; /* Set the logo size */
+    width: auto;
+    margin-right: 10px; /* Space between logo and text */
+}
+
+.err-hubble-logo span {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+/* Error code styling */
+.error-code {
+    font-size: 4em; /* Make error code larger */
+    margin-top: 40%; /* Position it about 40% from the top */
+    margin-bottom: 10px;
+}
+
+/* Error message styling */
+.error-msg {
+    font-size: 1.5em;
+    margin-top: 5%; /* Position it around 50-55% of the screen */
+}

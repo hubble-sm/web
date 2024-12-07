@@ -1,0 +1,39 @@
+@use "index" as *;
+
+// Apply theme variables
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.navbar {
+  background-color: var(--navbar-bg);
+  color: var(--navbar-text);
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.form-control {
+  background-color: var(--input-bg);
+  border-color: var (--input-border);
+  color: var(--input-text);
+  
+  &:focus {
+    background-color: var(--input-bg);
+    border-color: var(--primary);
+    color: var(--input-text);
+  }
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  
+  &:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+}

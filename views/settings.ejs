@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head', {title: 'Settings - Hubble'}) %>
+<link rel="stylesheet" href="/css/settings.css">
+<body>
+    <div class="settings-layout">
+        <%- include('partials/navbar', { activeId: 'settings' }) %>
+        
+        <main class="settings-main">
+            <div class="settings-container">
+                <h2 class="settings-title">Settings</h2>
+
+                <form action="/settings/update" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <h5>Profile Settings</h5>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-field">
+                                <label>Display Name</label>
+                                <input type="text" name="display_name" value="<%= settings.display_name || '' %>">
+                            </div>
+                            <div class="settings-field">
+                                <label>Bio</label>
+                                <textarea name="bio" rows="3"><%= settings.bio || '' %></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-card">
+                        <div class="settings-card-header">
+                            <h5>Appearance</h5>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="settings-field">
+                                <label>Theme</label>
+                                <select name="theme" class="form-control">
+                                    <option value="light" <%= theme === 'light' ? 'selected' : '' %>>Light</option>
+                                    <option value="dark" <%= theme === 'dark' ? 'selected' : '' %>>Dark</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+
+                <form action="/account/logout" method="POST" class="mt-4">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <%- include('partials/footer') %>
+</body>
+</html>

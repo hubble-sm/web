@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/css/post.css">
+    <%- include('partials/head', { title: 'Post - Hubble' }) %>
+</head>
+<body>
+    <%- include('partials/navbar', { activeId: 'post' }) %>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <%- include('partials/post-card', { post, fullView: true }) %>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.post-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.post-card {
+    background-color: #444444;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .post-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .post-user-info {
+            display: flex;
+            flex-direction: column;
+
+            .username {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            .timestamp {
+                font-size: 0.9rem;
+                color: #888;
+            }
+        }
+    }
+
+    .post-content {
+        p {
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            max-height: 300px;
+            object-fit: cover;
+        }
+    }
+
+    .post-footer {
+        display: flex;
+        justify-content: flex-start; // Align buttons to the left
+        gap: 0.5em; // Adds space between buttons
+        align-items: center; // Ensures vertical alignment if needed
+
+        a {
+            display: inline-flex; // Ensure buttons stay inline
+            align-items: center; // Align icons and text properly
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none; // Removes underline
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1); // Light hover effect
+            }
+
+            &:active {
+                background-color: rgba(0, 0, 0, 0.2); // Slightly darker on active
+            }
+        }
+
+        .like-btn {
+            color: #e0245e;
+        }
+
+        .comment-btn {
+            color: #FFFFFF;
+        }
+
+        .share-btn {
+            color: #36dd44;
+        }
+    }
+}

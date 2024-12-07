@@ -1,0 +1,134 @@
+// Settings Variables
+:root {
+  --settings-spacing: 1.5rem;
+  --settings-radius: 8px;
+  --settings-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --settings-border: 1px solid var(--border-color);
+}
+
+// Layout
+.settings-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-secondary);
+}
+
+.settings-main {
+  flex: 1;
+  margin-left: 240px;
+  padding: var(--settings-spacing);
+}
+
+.settings-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--settings-spacing);
+}
+
+// Title
+.settings-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: var(--settings-spacing);
+  color: var(--text-primary);
+}
+
+// Cards
+.settings-card {
+  background: var(--bg-primary);
+  border-radius: var(--settings-radius);
+  box-shadow: var(--settings-shadow);
+  margin-bottom: var(--settings-spacing);
+  border: var(--settings-border);
+  
+  .settings-card-header {
+    padding: var(--settings-spacing);
+    border-bottom: var(--settings-border);
+    
+    h5 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+  
+  .settings-card-body {
+    padding: var(--settings-spacing);
+  }
+}
+
+// Form Fields
+.settings-field {
+  margin-bottom: var(--settings-spacing);
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  input, 
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: var(--settings-border);
+    border-radius: var(--settings-radius);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: all 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+}
+
+// Save Button
+.settings-save {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--settings-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+  &:hover {
+    background: var(--primary-dark);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .settings-main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .settings-container {
+    padding: 1rem;
+  }
+  
+  .settings-card {
+    margin-bottom: 1rem;
+  }
+}

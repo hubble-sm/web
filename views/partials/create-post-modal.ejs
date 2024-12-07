@@ -1,0 +1,88 @@
+<div class="modal fade" id="createPostModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="postError" class="alert alert-danger" style="display: none;"></div>
+        <form id="createPostForm">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <div class="mb-3">
+            <textarea 
+              class="form-control" 
+              id="postContent" 
+              name="content" 
+              rows="4" 
+              maxlength="1000" 
+              required
+            ></textarea>
+            <div class="form-text">
+              <span id="charCount">0</span>/1000 characters
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="submitPost" disabled>Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('createPostForm');
+  const textarea = document.getElementById('postContent');
+  const charCount = document.getElementById('charCount');
+  const submitBtn = document.getElementById('submitPost');
+  const errorDiv = document.getElementById('postError');
+  const modal = document.getElementById('createPostModal');
+
+  // Character counter
+  textarea.addEventListener('input', () => {
+    const length = textarea.value.length;
+    charCount.textContent = length;
+    submitBtn.disabled = length === 0 || length > 1000;
+  });
+
+  // Form submission
+  submitBtn.addEventListener('click', async () => {
+    try {
+      const response = await fetch('/post/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CSRF-Token': document.querySelector('[name="_csrf"]').value
+        },
+        body: JSON.stringify({
+          content: textarea.value
+        })
+      });
+
+      if (response.ok) {
+        // Clear form and close modal
+        form.reset();
+        bootstrap.Modal.getInstance(modal).hide();
+        // Reload page to show new post
+        window.location.reload();
+      } else {
+        const data = await response.json();
+        errorDiv.textContent = data.message || 'Failed to create post';
+        errorDiv.style.display = 'block';
+      }
+    } catch (error) {
+      errorDiv.textContent = 'An error occurred. Please try again.';
+      errorDiv.style.display = 'block';
+    }
+  });
+
+  // Clear error on modal close
+  modal.addEventListener('hidden.bs.modal', () => {
+    errorDiv.style.display = 'none';
+    form.reset();
+  });
+});
+</script>

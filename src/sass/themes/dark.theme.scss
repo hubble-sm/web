@@ -1,0 +1,85 @@
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --border-color: #333;
+  --primary-color: #0d6efd;
+  --primary-dark: #0b5ed7;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+a {
+    color: #009bff;
+}
+
+.card {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+.form-control {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+
+  &:focus {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
+.navbar {
+  background: var(--bg-secondary);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+[data-theme="dark"] {
+  // Base colors
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  
+  // Component colors
+  --navbar-bg: #1a1a1a;
+  --navbar-text: #ffffff;
+  --card-bg: #2a2a2a;
+  --card-border: #404040;
+  
+  // Form elements
+  --input-bg: #333333;
+  --input-border: #404040;
+  --input-text: #e0e0e0;
+  
+  // Accent colors
+  --primary: #0d6efd;
+  --primary-hover: #0b5ed7;
+  --success: #198754;
+  --danger: #dc3545; // Added danger color
+}
+
+.post-card {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .post-card {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .post-card a {
+  color: var(--primary-color); /* Or another color if links need to stand out */
+}
+
+body[data-theme="dark"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
